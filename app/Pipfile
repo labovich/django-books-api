@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-rest-framework = "*"
+djangorestframework-jwt = "*"
+psycopg2 = "*"
+django-stubs = "*"
+
+[dev-packages]
+mypy = "*"
+pytest = "*"
+pytest-django = "*"
+black = "==21.9b0"
+
+[requires]
+python_version = "3.9"
