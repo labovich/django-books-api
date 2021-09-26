@@ -18,6 +18,9 @@ mypy = "==0.910"
 pytest = "*"
 pytest-django = "*"
 black = "==21.9b0"
+faker = "*"
+django-dynamic-fixture = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"

@@ -31,7 +31,7 @@ class BookshelvesCreateSerializer(BookshelvesBaseSerializer):
     class Meta(BookshelvesBaseSerializer.Meta):
         fields = ("number", "library_id")
 
-    def validate_bookshelf_id(self, value):
+    def validate_library_id(self, value):
         if not Libraries.objects.filter(id=value).exists():
             raise serializers.ValidationError("Invalid library_id.")
         return value
