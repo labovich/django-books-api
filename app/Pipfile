@@ -10,6 +10,8 @@ djangorestframework-jwt = "*"
 psycopg2 = "*"
 django-stubs = "*"
 django-environ = "*"
+drf-yasg = "*"
+django-extensions = "*"
 
 [dev-packages]
 mypy = "==0.910"
