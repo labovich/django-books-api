@@ -29,7 +29,8 @@ class BookshelvesCreateSerializer(BookshelvesBaseSerializer):
     number = IntegerField(required=True, min_value=1)
 
     class Meta(BookshelvesBaseSerializer.Meta):
-        fields = ("number", "library_id")
+        fields = ("number", "library_id", "id", "created", "updated")
+        read_only_fields = ("id", "created", "updated")
 
     def validate_library_id(self, value):
         if not Libraries.objects.filter(id=value).exists():
@@ -56,7 +57,8 @@ class BooksCreateSerializer(BooksBaseSerializer):
     year = IntegerField(required=True, min_value=1900, max_value=2100)
 
     class Meta(BooksBaseSerializer.Meta):
-        fields = ("name", "author", "year", "bookshelf_id")
+        fields = ("name", "author", "year", "bookshelf_id", "id", "created", "updated")
+        read_only_fields = ("id", "bookshelf", "created", "updated")
 
     def validate_bookshelf_id(self, value):
         if not Bookshelves.objects.filter(id=value).exists():
@@ -65,7 +67,7 @@ class BooksCreateSerializer(BooksBaseSerializer):
 
 
 class BooksSerializer(BooksBaseSerializer):
-    bookshelf = BookshelvesSerializer()
+    bookshelf = BookshelvesBaseSerializer()
 
     class Meta(BooksBaseSerializer.Meta):
         model = Books

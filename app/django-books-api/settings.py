@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from environ import environ
@@ -138,6 +139,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+SIMPLE_JWT = {"ACCESS_TOKEN_LIFETIME": timedelta(minutes=60)}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
