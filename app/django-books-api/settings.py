@@ -22,6 +22,11 @@ env = environ.Env(
         str,
         "django-insecure-*%ply2uu7*1*07%stcsmx@m9+a(ze7+0g@k#_cfu-xlqu)h$f5",
     ),
+    POSTGRES_DB=(str, "postgres"),
+    POSTGRES_USER=(str, "postgres"),
+    POSTGRES_PASSWORD=(str, "postgres"),
+    POSTGRES_HOST=(str, "db"),
+    POSTGRES_PORT=(int, 5432),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -97,11 +102,11 @@ WSGI_APPLICATION = "django-books-api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env.str("DB_NAME"),
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.str("DB_PASSWORD"),
-        "HOST": env.str("DB_HOST"),
-        "PORT": env.int("DB_PORT"),
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
+        "HOST": env.str("POSTGRES_HOST"),
+        "PORT": env.int("POSTGRES_PORT"),
     }
 }
 
