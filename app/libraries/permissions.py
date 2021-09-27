@@ -7,7 +7,7 @@ class IsAdminCreateIsAuthenticatedRead(BasePermission):
     """
 
     def has_permission(self, request, view):
-        if request.method in ("POST", "PUT", "DELETE"):
+        if request.method in ("POST", "PUT", "DELETE", "PATCH"):
             return request.user and request.user.is_staff
         else:
             return request.user and request.user.is_authenticated

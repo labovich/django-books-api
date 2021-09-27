@@ -17,6 +17,9 @@ def test_permission_for_admin(mocked_request, admin_user):
     mocked_request.method = "PUT"
     assert IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
 
+    mocked_request.method = "PATCH"
+    assert IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
+
     mocked_request.method = "DELETE"
     assert IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
 
@@ -32,6 +35,9 @@ def test_permission_for_admin(mocked_request, base_user):
     assert not IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
 
     mocked_request.method = "PUT"
+    assert not IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
+
+    mocked_request.method = "PATCH"
     assert not IsAdminCreateIsAuthenticatedRead().has_permission(mocked_request, None)
 
     mocked_request.method = "DELETE"

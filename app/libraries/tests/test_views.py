@@ -77,6 +77,24 @@ def test_update_library(admin_user):
 
 
 @pytest.mark.django_db
+def test_put_library(admin_user):
+    librariy_db = G(Libraries)
+
+    request_data = {"name": faker.company(), "address": faker.address()}
+
+    request = APIRequestFactory().put(
+        reverse("libraries-detail", kwargs={"pk": librariy_db.pk}),
+        json.dumps(request_data),
+        content_type="application/json",
+    )
+    request.user = admin_user
+    response = LibrariesViewSet.as_view({"put": "update"})(request, pk=librariy_db.pk)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["name"] == request_data["name"]
+
+
+@pytest.mark.django_db
 def test_delete_library(admin_user):
     librariy_db = G(Libraries)
 
@@ -153,6 +171,26 @@ def test_update_bookshelf(admin_user):
     )
     request.user = admin_user
     response = BookshelvesViewSet.as_view({"patch": "update"})(
+        request, pk=bookshelf_db.pk
+    )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["number"] == request_data["number"]
+
+
+@pytest.mark.django_db
+def test_put_bookshelf(admin_user):
+    bookshelf_db = G(Bookshelves)
+    librariy_db = G(Libraries)
+    request_data = {"number": faker.random_int(min=1), "library_id": librariy_db.id}
+
+    request = APIRequestFactory().put(
+        reverse("bookshelves-detail", kwargs={"pk": bookshelf_db.pk}),
+        json.dumps(request_data),
+        content_type="application/json",
+    )
+    request.user = admin_user
+    response = BookshelvesViewSet.as_view({"put": "update"})(
         request, pk=bookshelf_db.pk
     )
 
@@ -245,6 +283,29 @@ def test_update_books(admin_user):
     )
     request.user = admin_user
     response = BooksViewSet.as_view({"patch": "update"})(request, pk=books_db.pk)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["name"] == request_data["name"]
+
+
+@pytest.mark.django_db
+def test_put_books(admin_user):
+    books_db = G(Books)
+    bookshelf_db = G(Bookshelves)
+    request_data = {
+        "name": faker.name(),
+        "author": faker.name(),
+        "year": faker.random_int(min=1900, max=2100),
+        "bookshelf_id": bookshelf_db.id,
+    }
+
+    request = APIRequestFactory().put(
+        reverse("books-detail", kwargs={"pk": books_db.pk}),
+        json.dumps(request_data),
+        content_type="application/json",
+    )
+    request.user = admin_user
+    response = BooksViewSet.as_view({"put": "update"})(request, pk=books_db.pk)
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data["name"] == request_data["name"]
